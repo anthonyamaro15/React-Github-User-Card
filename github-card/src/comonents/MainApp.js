@@ -7,7 +7,7 @@ class MainApp extends Component {
   constructor() {
     super();
     this.state = {
-      myData: [],
+      // myData: [],
       userFollowers: [],
       followersInformation: [],
     };
@@ -20,7 +20,7 @@ class MainApp extends Component {
       .then((res) => {
         console.log(res.data);
         this.setState({
-          myData: res.data,
+          followersInformation: [...this.state.followersInformation, res.data],
         });
         //   console.log(res.data);
       })
@@ -35,44 +35,36 @@ class MainApp extends Component {
         });
       })
       .catch((err) => console.log(err));
+
+    setTimeout(() => {
+      this.state.userFollowers.forEach((user) => {
+        axios.get(`https://api.github.com/users/${user}`).then((res) => {
+          console.log(res.data);
+          this.setState({
+            followersInformation: [
+              ...this.state.followersInformation,
+              res.data,
+            ],
+          });
+        });
+      });
+    }, 1000);
   };
 
   componentDidMount() {
     console.log("componentDidMount()");
     this.getData();
-    //  this.getFollowersData();
   }
 
-  //   componentDidUpdate() {
-  //     console.log("componentDidUpdata()");
-  //     //  this.state.userFollowers.forEach((user) => {
-  //     //    axios.get(`https://api.github.com/users/${user}`).then((res) => {
-  //     //      this.setState({
-  //     //        followersInformation: [
-  //     //          ...this.state.followersInformation,
-  //     //          res.data,
-  //     //          this.state.myData,
-  //     //        ],
-  //     //      });
-  //     //    });
-  //     //  });
-  //     //  console.log(this.state);
-  //   }
-
   render() {
-    console.log("rendering..");
+    //  console.log("rendering..");
+    const { followersInformation } = this.state;
+    console.log(followersInformation);
     return (
       <div className="card-parent">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {followersInformation.map((user) => (
+          <Card key={user.id} user={user} />
+        ))}
       </div>
     );
   }

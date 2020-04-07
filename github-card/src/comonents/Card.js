@@ -1,16 +1,14 @@
 import React from "react";
 
-const Card = () => {
+const Card = ({ user }) => {
+  const { name, login, bio, location, avatar_url } = user;
   return (
     <div className="card">
-      <img
-        src="https://cdn.pixabay.com/photo/2015/02/24/15/41/dog-647528__340.jpg"
-        alt="night"
-      />
-      <h2>name</h2>
-      <p>github name</p>
-      <p>bio</p>
-      <p>location</p>
+      <img src={avatar_url} alt={login} />
+      <h2>name: {name}</h2>
+      <p>github name: {login}</p>
+      <p>bio: {bio}</p>
+      <p>location: {location}</p>
     </div>
   );
 };
