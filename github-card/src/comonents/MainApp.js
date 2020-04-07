@@ -2,32 +2,30 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import Card from "./Card";
+import MainForm from "./Form";
 
 class MainApp extends Component {
   constructor() {
     super();
     this.state = {
-      // myData: [],
+      name: "anthonyamaro15",
       userFollowers: [],
       followersInformation: [],
     };
   }
 
   getData = () => {
-    console.log("fetching data...");
     axios
-      .get(`https://api.github.com/users/anthonyamaro15`)
+      .get(`https://api.github.com/users/${this.state.name}`)
       .then((res) => {
-        console.log(res.data);
         this.setState({
           followersInformation: [...this.state.followersInformation, res.data],
         });
-        //   console.log(res.data);
       })
       .catch((err) => console.log(err));
 
     axios
-      .get(`https://api.github.com/users/anthonyamaro15/followers`)
+      .get(`https://api.github.com/users/${this.state.name}/followers`)
       .then((res) => {
         const loginInfo = res.data.map((info) => info.login);
         this.setState({
@@ -52,19 +50,32 @@ class MainApp extends Component {
   };
 
   componentDidMount() {
-    console.log("componentDidMount()");
     this.getData();
   }
 
+  componentDidUpdate() {
+    console.log("componentDidUpdate()");
+    if (!this.state.name === "anthonyamaro15") {
+      this.getData();
+    }
+  }
+
+  handleChange = (value) => {
+    this.setState({
+      name: value,
+    });
+  };
+
   render() {
-    //  console.log("rendering..");
     const { followersInformation } = this.state;
-    console.log(followersInformation);
     return (
-      <div className="card-parent">
-        {followersInformation.map((user) => (
-          <Card key={user.id} user={user} />
-        ))}
+      <div>
+        <MainForm handleChange={this.handleChange} />
+        <div className="card-parent">
+          {followersInformation.map((user) => (
+            <Card key={user.id} user={user} />
+          ))}
+        </div>
       </div>
     );
   }
