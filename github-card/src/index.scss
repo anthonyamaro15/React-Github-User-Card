@@ -1,0 +1,40 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.card-parent {
+  width: 70%;
+  margin: 5rem auto;
+  text-transform: capitalize;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  .card {
+    border: 1px solid #f4f4f4;
+    margin: 0 0.5rem 2rem;
+    border-radius: 7px;
+    box-shadow: 0px 0px 12px 1px rgba(161, 153, 161, 1);
+
+    width: 400px;
+
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      font-weight: normal;
+      margin: 0.4rem 0 0.9rem;
+      padding: 0 1rem;
+    }
+
+    p {
+      padding: 0.2rem 1rem;
+      margin-bottom: 0.4rem;
+      background: #f4f4f4;
+    }
+  }
+}

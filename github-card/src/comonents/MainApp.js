@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+import Card from "./Card";
+
 class MainApp extends Component {
   constructor() {
     super();
@@ -16,6 +18,7 @@ class MainApp extends Component {
     axios
       .get(`https://api.github.com/users/anthonyamaro15`)
       .then((res) => {
+        console.log(res.data);
         this.setState({
           myData: res.data,
         });
@@ -59,8 +62,17 @@ class MainApp extends Component {
   render() {
     console.log("rendering..");
     return (
-      <div>
-        <h3>MainApp</h3>
+      <div className="card-parent">
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
       </div>
     );
   }
