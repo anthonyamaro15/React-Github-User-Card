@@ -53,9 +53,9 @@ class MainApp extends Component {
     this.getData();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     console.log("componentDidUpdate()");
-    if (!this.state.name === "anthonyamaro15") {
+    if (this.state.name !== prevState.name) {
       this.getData();
     }
   }
@@ -63,6 +63,7 @@ class MainApp extends Component {
   handleChange = (value) => {
     this.setState({
       name: value,
+      followersInformation: [],
     });
   };
 
